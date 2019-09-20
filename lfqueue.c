@@ -252,8 +252,8 @@ lfqueue_init_mf(lfqueue_t *lfqueue, void* pl, lfqueue_malloc_fn lfqueue_malloc, 
 	lfqueue->_free = lfqueue_free;
 	lfqueue->pl = pl;
 
-	lfqueue_cas_node_t *base = lfqueue_malloc(pl, sizeof(lfqueue_cas_node_t));
-	lfqueue_cas_node_t *freebase = lfqueue_malloc(pl, sizeof(lfqueue_cas_node_t));
+	lfqueue_cas_node_t *base = (lfqueue_cas_node_t*)lfqueue_malloc(pl, sizeof(lfqueue_cas_node_t));
+	lfqueue_cas_node_t *freebase = (lfqueue_cas_node_t*)lfqueue_malloc(pl, sizeof(lfqueue_cas_node_t));
 	if (base == NULL || freebase == NULL) {
 		perror("malloc");
 		return errno;
@@ -374,6 +374,8 @@ lfqueue_sleep(unsigned int milisec) {
 #endif
 }
 
+/*
 #ifdef __cplusplus
 }
 #endif
+*/
